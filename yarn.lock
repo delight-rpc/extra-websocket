@@ -2826,12 +2826,13 @@ extra-timers@^0.2.5:
   dependencies:
     extra-rand "^0.1.1"
 
-extra-websocket@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/extra-websocket/-/extra-websocket-0.1.0.tgz#9974d795e649cac705cbea9f75ef336a8e7ec49a"
-  integrity sha512-WvySQNfVOQM0m7K2aaWHI9uAtv01NbYafgzherU1egQIdqCgD+y6cY/Roz6z9J/xQYGxNqSTlj3wvTpWZQzKAg==
+extra-websocket@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/extra-websocket/-/extra-websocket-0.2.1.tgz#0005d15314fb16c54b1c285ec3220733052fec16"
+  integrity sha512-cRyr0+TQquD0ty92dzsSQhAbuGA56tS4H7Czf1ImrxFbiXugTgMxi/Exh/DMc7GDouNY/mLAaXh421OoAs0gUA==
   dependencies:
     "@blackglory/prelude" "^0.1.1"
+    "@blackglory/structures" "^0.5.1"
     extra-abort "^0.1.2"
     extra-promise "^2.0.0"
     extra-timers "^0.2.5"
