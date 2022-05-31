@@ -29,3 +29,18 @@ function createBatchClient(
   }
 ): [client: DelightRPC.BatchClient, close: () => void]
 ```
+
+### createServer
+```ts
+function createServer<IAPI extends object>(
+  api: DelightRPC.ImplementationOf<IAPI>
+, socket: ExtraWebSocket
+, options?: {
+    loggerLevel?: Level = Level.None
+    parameterValidators?: DelightRPC.ParameterValidators<IAPI>
+    version?: `${number}.${number}.${number}`
+    channel?: string
+    ownPropsOnly?: boolean
+  }
+): () => void
+```

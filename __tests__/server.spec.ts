@@ -1,25 +1,33 @@
 import { createClient } from '@src/client'
+import { createServer } from '@src/server'
 import WebSocket, { Server, WebSocketServer } from 'ws'
 import '@blackglory/jest-matchers'
 import { getErrorPromise } from 'return-style'
+import { Level } from 'extra-logger'
 import * as DelightRPCWebSocket from '@delight-rpc/websocket'
 import { ExtraWebSocket } from 'extra-websocket'
 
 interface IAPI {
-  echo(message: string): string
-  error(message: string): never
+  eval(code: string): Promise<unknown>
+}
+
+const api = {
+  echo(message: string): string {
+    return message
+  }
+, error(message: string): never {
+    throw new Error(message)
+  }
 }
 
 let server: WebSocketServer
 beforeEach(() => {
   server = new Server({ port: 8080 })
   server.on('connection', socket => {
+    const [client] = DelightRPCWebSocket.createClient(socket)
     const cancelServer = DelightRPCWebSocket.createServer<IAPI>({
-      echo(message) {
-        return message
-      }
-    , error(message) {
-        throw new Error(message)
+      async eval(code) {
+        return await eval(code)
       }
     }, socket)
   })
@@ -28,18 +36,21 @@ afterEach(() => {
   server.close()
 })
 
-describe('createClient', () => {
+describe('createServer', () => {
   test('echo', async () => {
     const wsClient = new ExtraWebSocket(() => new WebSocket('ws://localhost:8080'))
     await wsClient.connect()
 
+    const cancelServer = createServer(api, wsClient, {
+      loggerLevel: Level.None
+    })
+    const [client, close] = createClient<IAPI>(wsClient)
     try {
-      const [client] = createClient<IAPI>(wsClient)
-      const result = await client.echo('hello')
-
-      expect(result).toBe('hello')
+      const result = await client.eval('client.echo("hello")')
+      expect(result).toEqual('hello')
     } finally {
       wsClient.close()
+      cancelServer()
     }
   })
 
@@ -47,14 +58,17 @@ describe('createClient', () => {
     const wsClient = new ExtraWebSocket(() => new WebSocket('ws://localhost:8080'))
     await wsClient.connect()
 
+    const cancelServer = createServer(api, wsClient, {
+      loggerLevel: Level.None
+    })
+    const [client, close] = createClient<IAPI>(wsClient)
     try {
-      const [client] = createClient<IAPI>(wsClient)
-      const err = await getErrorPromise(client.error('hello'))
-
+      const err = await getErrorPromise(client.eval('client.error("hello")'))
       expect(err).toBeInstanceOf(Error)
       expect(err!.message).toMatch('hello')
     } finally {
       wsClient.close()
+      cancelServer()
     }
   })
 })
