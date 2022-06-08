@@ -19,7 +19,7 @@ export function createClient<IAPI extends object>(
 ): [client: DelightRPC.ClientProxy<IAPI>, close: () => void] {
   const pendings: { [id: string]: Deferred<IResponse<any>> } = {}
 
-  const removeMessageListener = socket.on('message', listener)
+  socket.addEventListener('message', handler)
 
   const client = DelightRPC.createClient<IAPI>(
     async function send(request) {
@@ -46,7 +46,7 @@ export function createClient<IAPI extends object>(
   return [client, close]
 
   function close() {
-    removeMessageListener()
+    socket.removeEventListener('message', handler)
 
     for (const [key, deferred] of Object.entries(pendings)) {
       deferred.reject(new ClientClosed())
@@ -54,7 +54,7 @@ export function createClient<IAPI extends object>(
     }
   }
 
-  function listener(event: MessageEvent): void {
+  function handler(event: MessageEvent): void {
     const data = event.data
     if (isString(data)) {
       const res = getResult(() => JSON.parse(data))
@@ -80,7 +80,7 @@ export function createBatchClient(
     >
   } = {}
 
-  const removeMessageListener = socket.on('message', listener)
+  socket.addEventListener('message', handler)
 
   const client = new DelightRPC.BatchClient(
     async function send(request) {
@@ -109,7 +109,7 @@ export function createBatchClient(
   return [client, close]
 
   function close() {
-    removeMessageListener()
+    socket.removeEventListener('message', handler)
 
     for (const [key, deferred] of Object.entries(pendings)) {
       deferred.reject(new ClientClosed())
@@ -117,7 +117,7 @@ export function createBatchClient(
     }
   }
 
-  function listener(event: MessageEvent): void {
+  function handler(event: MessageEvent): void {
     const data = event.data
     if (isString(data)) {
       const res = getResult(() => JSON.parse(data))

@@ -23,10 +23,10 @@ export function createServer<IAPI extends object>(
   , transport: new TerminalTransport()
   })
 
-  const removeMessageListener = socket.on('message', listener)
-  return () => removeMessageListener()
+  socket.addEventListener('message', handler)
+  return () => socket.removeEventListener('message', handler)
 
-  async function listener(event: MessageEvent): Promise<void> {
+  async function handler(event: MessageEvent): Promise<void> {
     const data = event.data
     if (isString(data)) {
       const request = getResult(() => JSON.parse(data))
