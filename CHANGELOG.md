@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/delight-rpc/extra-websocket/compare/v0.2.3...v0.3.0) (2022-06-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* It requires extra-websocket^0.3.0 now
+
+* upgrade dependencies ([e76da75](https://github.com/delight-rpc/extra-websocket/commit/e76da751ac383f2f40bfc0be1919d201a3d267f3))
+
 ### [0.2.3](https://github.com/delight-rpc/extra-websocket/compare/v0.2.2...v0.2.3) (2022-06-08)
 
 ### [0.2.2](https://github.com/delight-rpc/extra-websocket/compare/v0.2.1...v0.2.2) (2022-06-08)
