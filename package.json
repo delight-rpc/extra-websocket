@@ -36,11 +36,11 @@
     "@types/jest": "^27.5.1",
     "@types/node": "14",
     "@types/ws": "^8.5.3",
-    "@typescript-eslint/eslint-plugin": "^5.27.1",
-    "@typescript-eslint/parser": "^5.27.1",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0",
     "cross-env": "^7.0.3",
-    "delight-rpc": "^4.1.0",
-    "eslint": "8.17.0",
+    "delight-rpc": "^4.2.1",
+    "eslint": "8.18.0",
     "extra-websocket": "^0.3.0",
     "husky": "4",
     "jest": "^27.5.1",
@@ -50,21 +50,21 @@
     "ts-jest": "^27.1.4",
     "ts-node": "^10.8.1",
     "ts-patch": "^2.0.1",
-    "typescript": "^4.7.3",
+    "typescript": "^4.7.4",
     "typescript-transform-paths": "^3.3.1",
-    "ws": "^8.7.0"
+    "ws": "^8.8.0"
   },
   "dependencies": {
     "@blackglory/errors": "^2.2.1",
-    "@blackglory/prelude": "^0.1.1",
+    "@blackglory/prelude": "^0.1.2",
     "@delight-rpc/protocol": "^2.2.0",
     "extra-abort": "^0.1.2",
     "extra-logger": "^0.6.8",
-    "extra-promise": "^2.0.0",
+    "extra-promise": "^2.2.0",
     "return-style": "^1.0.0"
   },
   "peerDependencies": {
-    "delight-rpc": "^4.1.0",
+    "delight-rpc": "^4.2.1",
     "extra-websocket": "^0.3.0"
   }
 }
