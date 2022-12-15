@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/delight-rpc/extra-websocket/compare/v0.3.2...v0.4.0) (2022-12-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* - The minimal version of Node.js is 16
+- It requires delight-rpc@^5.0.0
+
+* upgrade dependencies ([2c02f5d](https://github.com/delight-rpc/extra-websocket/commit/2c02f5deaa00b63ed894b7dda3135137c16775f4))
+
 ### [0.3.2](https://github.com/delight-rpc/extra-websocket/compare/v0.3.1...v0.3.2) (2022-08-01)
 
 ### [0.3.1](https://github.com/delight-rpc/extra-websocket/compare/v0.3.0...v0.3.1) (2022-06-21)
