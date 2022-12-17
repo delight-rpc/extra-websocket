@@ -1,6 +1,5 @@
 import { createClient } from '@src/client'
 import WebSocket, { Server, WebSocketServer } from 'ws'
-import '@blackglory/jest-matchers'
 import { getErrorPromise } from 'return-style'
 import * as DelightRPCWebSocket from '@delight-rpc/websocket'
 import { ExtraWebSocket } from 'extra-websocket'
