@@ -1,8 +1,9 @@
-import { createClient } from '@src/client'
-import WebSocket, { Server, WebSocketServer } from 'ws'
+import { createClient } from '@src/client.js'
+import WebSocket, { WebSocketServer } from 'ws'
 import { getErrorPromise } from 'return-style'
 import * as DelightRPCWebSocket from '@delight-rpc/websocket'
 import { ExtraWebSocket } from 'extra-websocket'
+import { promisify } from 'extra-promise'
 
 interface IAPI {
   echo(message: string): string
@@ -11,7 +12,7 @@ interface IAPI {
 
 let server: WebSocketServer
 beforeEach(() => {
-  server = new Server({ port: 8080 })
+  server = new WebSocketServer({ port: 8080 })
   server.on('connection', socket => {
     const cancelServer = DelightRPCWebSocket.createServer<IAPI>({
       echo(message) {
@@ -23,8 +24,8 @@ beforeEach(() => {
     }, socket)
   })
 })
-afterEach(() => {
-  server.close()
+afterEach(async () => {
+  await promisify(server.close.bind(server))()
 })
 
 describe('createClient', () => {
