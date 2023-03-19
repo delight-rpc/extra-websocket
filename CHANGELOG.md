@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/delight-rpc/extra-websocket/compare/v0.4.1...v0.6.0) (2023-03-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* CommonJS => ESM
+
+* upgrade dependencies ([5e50cd4](https://github.com/delight-rpc/extra-websocket/commit/5e50cd4bbb6dd41d3c02534f10f7d51e1535686a))
+
 ### [0.4.1](https://github.com/delight-rpc/extra-websocket/compare/v0.4.0...v0.4.1) (2023-02-05)
 
 ## [0.4.0](https://github.com/delight-rpc/extra-websocket/compare/v0.3.2...v0.4.0) (2022-12-15)
