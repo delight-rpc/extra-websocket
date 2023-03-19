@@ -1,6 +1,6 @@
 {
   "name": "@delight-rpc/extra-websocket",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "",
   "keywords": [],
   "files": [
@@ -20,7 +20,7 @@
     "prepare": "ts-patch install -s",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --quiet src __tests__",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --runInBand --config jest.config.cjs",
-    "prepublishOnly": "run-s clean build",
+    "prepublishOnly": "run-s prepare clean build",
     "clean": "rimraf lib",
     "build": "tsc --project tsconfig.build.json",
     "release": "standard-version"
