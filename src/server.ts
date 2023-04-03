@@ -4,6 +4,7 @@ import { MessageEvent } from 'ws'
 import { getResult } from 'return-style'
 import { Logger, TerminalTransport, Level } from 'extra-logger'
 import { isntNull, isString } from '@blackglory/prelude'
+import { AbortController } from 'extra-abort'
 
 export { Level } from 'extra-logger'
 
@@ -22,8 +23,16 @@ export function createServer<IAPI extends object>(
     level: loggerLevel
   , transport: new TerminalTransport()
   })
+  const idToController: Map<string, AbortController> = new Map()
 
   const removeMessageListener = socket.on('message', listener)
+  socket.on('close', () => {
+    for (const controller of idToController.values()) {
+      controller.abort()
+    }
+
+    idToController.clear()
+  })
   return () => removeMessageListener()
 
   async function listener(event: MessageEvent): Promise<void> {
@@ -31,28 +40,41 @@ export function createServer<IAPI extends object>(
     if (isString(data)) {
       const request = getResult(() => JSON.parse(data))
       if (DelightRPC.isRequest(request) || DelightRPC.isBatchRequest(request)) {
-        const response = await logger.infoTime(
-          () => {
-            if (DelightRPC.isRequest(request)) {
-              return request.method.join('.')
-            } else {
-              return request.requests.map(x => x.method.join('.')).join(', ')
-            }
-          }
-        , () => DelightRPC.createResponse(
-            api
-          , request
-          , {
-              parameterValidators
-            , version
-            , channel
-            , ownPropsOnly
-            }
-          )
-        )
+        const controller = new AbortController()
+        idToController.set(request.id, controller)
 
-        if (isntNull(response)) {
-          socket.send(JSON.stringify(response))
+        try {
+          const response = await logger.infoTime(
+            () => {
+              if (DelightRPC.isRequest(request)) {
+                return request.method.join('.')
+              } else {
+                return request.requests.map(x => x.method.join('.')).join(', ')
+              }
+            }
+          , () => DelightRPC.createResponse(
+              api
+            , request
+            , {
+                parameterValidators
+              , version
+              , channel
+              , ownPropsOnly
+              , signal: controller.signal
+              }
+            )
+          )
+
+          if (isntNull(response)) {
+            socket.send(JSON.stringify(response))
+          }
+        } finally {
+          idToController.delete(request.id)
+        }
+      } else if (DelightRPC.isAbort(request)) {
+        if (DelightRPC.matchChannel(request, channel)) {
+          idToController.get(request.id)?.abort()
+          idToController.delete(request.id)
         }
       }
     }
