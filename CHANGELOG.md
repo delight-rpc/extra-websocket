@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.2](https://github.com/delight-rpc/extra-websocket/compare/v0.6.1...v0.6.2) (2023-04-03)
+
+
+### Features
+
+* add `Abort` support ([788b4ef](https://github.com/delight-rpc/extra-websocket/commit/788b4ef070106206a7a9c7a4b4772931908a05b6))
+
 ### [0.6.1](https://github.com/delight-rpc/extra-websocket/compare/v0.6.0...v0.6.1) (2023-03-19)
 
 ## [0.6.0](https://github.com/delight-rpc/extra-websocket/compare/v0.4.1...v0.6.0) (2023-03-19)
