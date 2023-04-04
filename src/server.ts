@@ -38,23 +38,23 @@ export function createServer<IAPI extends object>(
   async function listener(event: MessageEvent): Promise<void> {
     const data = event.data
     if (isString(data)) {
-      const request = getResult(() => JSON.parse(data))
-      if (DelightRPC.isRequest(request) || DelightRPC.isBatchRequest(request)) {
+      const message = getResult(() => JSON.parse(data))
+      if (DelightRPC.isRequest(message) || DelightRPC.isBatchRequest(message)) {
         const controller = new AbortController()
-        idToController.set(request.id, controller)
+        idToController.set(message.id, controller)
 
         try {
           const response = await logger.infoTime(
             () => {
-              if (DelightRPC.isRequest(request)) {
-                return request.method.join('.')
+              if (DelightRPC.isRequest(message)) {
+                return message.method.join('.')
               } else {
-                return request.requests.map(x => x.method.join('.')).join(', ')
+                return message.requests.map(x => x.method.join('.')).join(', ')
               }
             }
           , () => DelightRPC.createResponse(
               api
-            , request
+            , message
             , {
                 parameterValidators
               , version
@@ -69,12 +69,12 @@ export function createServer<IAPI extends object>(
             socket.send(JSON.stringify(response))
           }
         } finally {
-          idToController.delete(request.id)
+          idToController.delete(message.id)
         }
-      } else if (DelightRPC.isAbort(request)) {
-        if (DelightRPC.matchChannel(request, channel)) {
-          idToController.get(request.id)?.abort()
-          idToController.delete(request.id)
+      } else if (DelightRPC.isAbort(message)) {
+        if (DelightRPC.matchChannel(message, channel)) {
+          idToController.get(message.id)?.abort()
+          idToController.delete(message.id)
         }
       }
     }
