@@ -1,5 +1,5 @@
 import { createClient } from '@src/client.js'
-import { createServer } from '@src/server'
+import { createServer } from '@src/server.js'
 import WebSocket, { WebSocketServer } from 'ws'
 import { getErrorPromise } from 'return-style'
 import { Level } from 'extra-logger'
