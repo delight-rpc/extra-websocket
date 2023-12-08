@@ -15,10 +15,11 @@ const SERVER_URL = 'ws://localhost:8080'
 
 let server: WebSocketServer
 let wsClient: ExtraWebSocket
+let cancelServer: () => void
 beforeEach(async () => {
   server = new WebSocketServer({ port: 8080 })
   server.on('connection', socket => {
-    const cancelServer = DelightRPCWebSocket.createServer<IAPI>({
+    cancelServer = DelightRPCWebSocket.createServer<IAPI>({
       echo(message) {
         return message
       }
@@ -34,6 +35,7 @@ beforeEach(async () => {
 afterEach(async () => {
   await wsClient.close()
 
+  cancelServer()
   await promisify(server.close.bind(server))()
 })
 

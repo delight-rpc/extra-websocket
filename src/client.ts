@@ -4,7 +4,7 @@ import { CustomError } from '@blackglory/errors'
 import { ExtraWebSocket } from 'extra-websocket'
 import type { MessageEvent } from 'ws'
 import { getResult } from 'return-style'
-import { isntUndefined, isString, isUndefined } from '@blackglory/prelude'
+import { isntUndefined, isString } from '@blackglory/prelude'
 import { IResponse, IError, IBatchResponse } from '@delight-rpc/protocol'
 import { withAbortSignal, raceAbortSignals, timeoutSignal } from 'extra-abort'
 
@@ -17,13 +17,13 @@ export function createClient<IAPI extends object>(
     timeout?: number
   } = {}
 ): [client: DelightRPC.ClientProxy<IAPI>, close: () => void] {
-  const pendings: Record<string, Deferred<IResponse<any>> | undefined> = {}
+  const pendings: Record<string, Deferred<IResponse<unknown>> | undefined> = {}
 
   const removeMessageListener = socket.on('message', listener)
 
   const client = DelightRPC.createClient<IAPI>(
     async function send(request, signal) {
-      const res = new Deferred<IResponse<any>>()
+      const res = new Deferred<IResponse<unknown>>()
       pendings[request.id] = res
       try {
         socket.send(JSON.stringify(request))

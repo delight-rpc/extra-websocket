@@ -21,11 +21,12 @@ const api = {
 }
 
 let server: WebSocketServer
+let cancelServer: () => void
 beforeEach(() => {
   server = new WebSocketServer({ port: 8080 })
   server.on('connection', socket => {
     const [client] = DelightRPCWebSocket.createClient(socket)
-    const cancelServer = DelightRPCWebSocket.createServer<IAPI>({
+    cancelServer = DelightRPCWebSocket.createServer<IAPI>({
       async eval(code) {
         return await eval(code)
       }
@@ -33,6 +34,7 @@ beforeEach(() => {
   })
 })
 afterEach(async () => {
+  cancelServer()
   await promisify(server.close.bind(server))()
 })
 
@@ -49,6 +51,7 @@ describe('createServer', () => {
       const result = await client.eval('client.echo("hello")')
       expect(result).toEqual('hello')
     } finally {
+      close()
       wsClient.close()
       cancelServer()
     }
@@ -67,6 +70,7 @@ describe('createServer', () => {
       expect(err).toBeInstanceOf(Error)
       expect(err!.message).toMatch('hello')
     } finally {
+      close()
       wsClient.close()
       cancelServer()
     }
