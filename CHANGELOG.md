@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.4](https://github.com/delight-rpc/extra-websocket/compare/v0.7.3...v0.7.4) (2026-02-12)
+
+
+### Bug Fixes
+
+* **client:** replace `Object.entries()` with `Map#entries()` ([98f0dfb](https://github.com/delight-rpc/extra-websocket/commit/98f0dfba58818ef55ea85b70d27bb4954af1e756))
+
 ### [0.7.3](https://github.com/delight-rpc/extra-websocket/compare/v0.7.2...v0.7.3) (2026-01-25)
 
 ### [0.7.2](https://github.com/delight-rpc/extra-websocket/compare/v0.7.1...v0.7.2) (2025-11-03)
