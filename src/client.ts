@@ -54,7 +54,7 @@ export function createClient<IAPI extends object>(
   function close() {
     removeMessageListener()
 
-    for (const [key, deferred] of Object.entries(pendings)) {
+    for (const [key, deferred] of pendings.entries()) {
       deferred.reject(new ClientClosed())
       pendings.delete(key)
     }
@@ -123,7 +123,7 @@ export function createBatchClient(
   function close() {
     removeMessageListener()
 
-    for (const [key, deferred] of Object.entries(pendings)) {
+    for (const [key, deferred] of pendings.entries()) {
       deferred.reject(new ClientClosed())
       pendings.delete(key)
     }
