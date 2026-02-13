@@ -99,15 +99,16 @@ export function createBatchClient(
       try {
         socket.send(JSON.stringify(request))
 
-        const mergedSignal = raceAbortSignals([
-          isntUndefined(timeout) && timeoutSignal(timeout)
-        ])
-        mergedSignal.addEventListener('abort', () => {
+        const signal = isntUndefined(timeout)
+                     ? timeoutSignal(timeout)
+                     : undefined
+
+        signal?.addEventListener('abort', () => {
           const abort = DelightRPC.createAbort(request.id, channel)
           socket.send(JSON.stringify(abort))
         })
 
-        return await withAbortSignal(mergedSignal, () => res)
+        return await withAbortSignal(signal, () => res)
       } finally {
         pendings.delete(request.id)
       }
