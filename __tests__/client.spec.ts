@@ -15,7 +15,7 @@ const SERVER_URL = 'ws://localhost:8080'
 
 let server: WebSocketServer
 let wsClient: ExtraWebSocket
-let cancelServer: () => void
+let cancelServer: (() => void) | undefined
 beforeEach(async () => {
   server = new WebSocketServer({ port: 8080 })
   server.on('connection', socket => {
@@ -35,7 +35,8 @@ beforeEach(async () => {
 afterEach(async () => {
   await wsClient.close()
 
-  cancelServer()
+  cancelServer?.()
+
   await promisify(server.close.bind(server))()
 })
 

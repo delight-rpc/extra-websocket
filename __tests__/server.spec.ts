@@ -21,9 +21,10 @@ const api = {
 }
 
 let server: WebSocketServer
-let cancelServer: () => void
+let cancelServer: (() => void) | undefined
 beforeEach(() => {
   server = new WebSocketServer({ port: 8080 })
+
   server.on('connection', socket => {
     const [client] = DelightRPCWebSocket.createClient(socket)
     cancelServer = DelightRPCWebSocket.createServer<IAPI>({
@@ -34,7 +35,8 @@ beforeEach(() => {
   })
 })
 afterEach(async () => {
-  cancelServer()
+  cancelServer?.()
+
   await promisify(server.close.bind(server))()
 })
 
