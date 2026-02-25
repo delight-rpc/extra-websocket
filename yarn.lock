@@ -436,6 +436,18 @@
     iterable-operator "^5.0.0"
     justypes "^4.2.1"
 
+"@blackglory/structures@^0.14.13":
+  version "0.14.13"
+  resolved "https://registry.yarnpkg.com/@blackglory/structures/-/structures-0.14.13.tgz#4edf1df75393ed0bc730004d061f119b8e398f72"
+  integrity sha512-uQ2g/ESKYpkjTRF4trAqcpqY/nvQXRtbOy1gWINqRMLhaEZN4ey9F2iTWKW/Idrgkm234VmXAlNoauLyT5NqGQ==
+  dependencies:
+    "@blackglory/errors" "^3.0.3"
+    "@blackglory/go" "^2.0.0"
+    extra-timers "^0.2.6"
+    extra-utils "^5.6.0"
+    iterable-operator "^5.0.0"
+    justypes "^4.2.1"
+
 "@blackglory/types@^1.1.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@blackglory/types/-/types-1.4.0.tgz#412c1fc0de7c5f3ecbdd6984c15eb80c8cee393a"
