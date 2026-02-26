@@ -46,7 +46,7 @@ export function createClient<IAPI extends object>(
         , signal
         ])
         mergedSignal.addEventListener('abort', sendAbort)
-        destructor.defer(sendAbort)
+        destructor.defer(() => mergedSignal.removeEventListener('abort', sendAbort))
 
         return await withAbortSignal(mergedSignal, () => res)
       } finally {
