@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.7](https://github.com/delight-rpc/extra-websocket/compare/v0.7.6...v0.7.7) (2026-02-26)
+
+
+### Bug Fixes
+
+* **client, server:** replace `close()` with `abortAllPendings()` ([4cdab88](https://github.com/delight-rpc/extra-websocket/commit/4cdab88f6612391afa3ca9a301006de16a4087aa))
+
 ### [0.7.6](https://github.com/delight-rpc/extra-websocket/compare/v0.7.5...v0.7.6) (2026-02-26)
 
 
