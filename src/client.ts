@@ -26,7 +26,8 @@ export function createClient<IAPI extends object>(
   const removeMessageListener = socket.on('message', receive)
   destructor.defer(removeMessageListener)
 
-  const removeCloseListener = socket.on('close', close)
+  // ExtraWebSocket具有重连的可能性, 因此调用abortAllPendings而不是close.
+  const removeCloseListener = socket.on('close', abortAllPendings)
   destructor.defer(removeCloseListener)
 
   const client = DelightRPC.createClient<IAPI>(
@@ -107,7 +108,8 @@ export function createBatchClient(
   const removeMessageListener = socket.on('message', receive)
   destructor.defer(removeMessageListener)
 
-  const removeCloseListener = socket.on('close', close)
+  // ExtraWebSocket具有重连的可能性, 因此调用abortAllPendings而不是close.
+  const removeCloseListener = socket.on('close', abortAllPendings)
   destructor.defer(removeCloseListener)
 
   const client = new DelightRPC.BatchClient(
