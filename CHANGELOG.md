@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.9](https://github.com/delight-rpc/extra-websocket/compare/v0.7.8...v0.7.9) (2026-08-06)
+
+
+### Bug Fixes
+
+* **server:** logging ([cbd0597](https://github.com/delight-rpc/extra-websocket/commit/cbd0597e31f53d1d6b70c9874cb85968e7d56bf3))
+
 ### [0.7.8](https://github.com/delight-rpc/extra-websocket/compare/v0.7.7...v0.7.8) (2026-02-26)
 
 
