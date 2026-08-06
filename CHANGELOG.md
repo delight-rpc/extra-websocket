@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/delight-rpc/extra-websocket/compare/v0.7.9...v0.8.0) (2026-08-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* Node.js v18.17 => Node.js v22
+
+* upgrade dependencies ([bb471f5](https://github.com/delight-rpc/extra-websocket/commit/bb471f5d7bc01c0426b06706d0e3e888b12506ea))
+
 ### [0.7.9](https://github.com/delight-rpc/extra-websocket/compare/v0.7.8...v0.7.9) (2026-08-06)
 
 
