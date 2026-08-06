@@ -1,3 +1,4 @@
+import { describe, beforeEach, afterEach, test, expect } from 'vitest'
 import { createBatchClient, createClient } from '@src/client.js'
 import WebSocket, { WebSocketServer } from 'ws'
 import { getErrorPromise } from 'return-style'
